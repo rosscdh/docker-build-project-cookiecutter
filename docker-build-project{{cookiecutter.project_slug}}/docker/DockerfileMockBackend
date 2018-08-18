@@ -24,7 +24,7 @@ ARG BUILDENV
 
 EXPOSE 3000
 
-#RUN npm i -g npx
+RUN  npm install -g json-server json-server-init
 
 WORKDIR /src
 

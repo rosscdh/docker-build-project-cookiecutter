@@ -9,9 +9,9 @@ Do stuff with react frontend and a php backend
 Docker compose is used and bundles all the toys
 
 ```
-npm install -g create-react-app
-npm install -g json-server-init
-npm install -g json-server
+#npm install -g create-react-app
+#npm install -g json-server-init
+#npm install -g json-server
 ```
 
 ```

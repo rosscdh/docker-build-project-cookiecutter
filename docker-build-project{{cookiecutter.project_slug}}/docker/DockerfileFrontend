@@ -26,6 +26,8 @@ EXPOSE 3000
 
 WORKDIR /src
 
+RUN npm install -g create-react-app
+
 ADD ./frontend /src/
 
 RUN yarn install
