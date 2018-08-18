@@ -1,10 +1,10 @@
-var schema = {
+var api = {
   "type": "object",
   "properties": {
     "users": {
       "type": "array",
-      "minItems": 3,
-      "maxItems": 5,
+      "minItems": 5,
+      "maxItems": 10,
       "items": {
         "type": "object",
         "properties": {
@@ -28,9 +28,37 @@ var schema = {
         },
         "required": ["id", "type", "lastname", "email"]
       }
+    },
+    "products": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 15,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "unique": true,
+            "minimum": 1
+          },
+          "name": {
+            "type": "string",
+            "faker": "commerce.productName"
+          },
+          "price": {
+            "type": "string",
+            "faker": "commerce.price"
+          },
+          "color": {
+            "type": "string",
+            "faker": "commerce.color"
+          }
+        },
+        "required": ["id", "name", "price", "color"]
+      }
     }
   },
-  "required": ["users"]
+  "required": ["users", "products"]
 };
 
-module.exports = schema;
+module.exports = api
