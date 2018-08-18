@@ -31,11 +31,12 @@ services:
     #working_dir: /var/www/html
     environment:
       - DJANGO_ENV=development
+      - DEBUG=True
       - DB_CONNECTION=postgres
       - DB_HOST=db
-      - DB_DATABASE='{{cookiecutter.project_slug}}'
-      - DB_USERNAME='{{cookiecutter.project_slug}}'
-      - DB_PASSWORD='{{cookiecutter.project_slug}}-password'
+      - DB_NAME={{cookiecutter.project_slug}}
+      - DB_USER={{cookiecutter.project_slug}}
+      - DB_PASSWORD={{cookiecutter.project_slug}}-password
       - MAIL_PROTOCOL=smtp
       - MAIL_DRIVER=smtp
       - MAIL_HOST=mailcatcher
@@ -78,11 +79,11 @@ services:
     image: postgres:alpine
     restart: always
     environment:
-      POSTGRES_DB: '{{cookiecutter.project_slug}}'
-      POSTGRES_USER: '{{cookiecutter.project_slug}}'
-      POSTGRES_PASSWORD: '{{cookiecutter.project_slug}}-password'
+      POSTGRES_DB: {{cookiecutter.project_slug}}
+      POSTGRES_USER: {{cookiecutter.project_slug}}
+      POSTGRES_PASSWORD: {{cookiecutter.project_slug}}-password
     ports:
-      - "3307:3306"
+      - "5432:5432"
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
 
