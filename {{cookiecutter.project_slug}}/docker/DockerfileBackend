@@ -1,0 +1,41 @@
+FROM python:3-alpine
+
+MAINTAINER "sendrossemail@gmail.com"
+
+EXPOSE 8000
+
+#
+# Handle the env info
+#
+ARG BUILD_COMMIT_SHA1
+ARG BUILD_COMMIT_DATE
+ARG BUILD_BRANCH
+ARG BUILD_DATE
+ARG BUILD_REPO_ORIGIN
+ARG BUILDENV
+
+ENV BUILD_COMMIT_SHA1=$BUILD_COMMIT_SHA1
+ENV BUILD_COMMIT_DATE=$BUILD_COMMIT_DATE
+ENV BUILD_BRANCH=$BUILD_BRANCH
+ENV BUILD_DATE=$BUILD_DATE
+ENV BUILD_REPO_ORIGIN=$BUILD_REPO_ORIGIN
+ENV BUILDENV=$BUILDENV
+
+WORKDIR /src
+
+ADD . /src
+
+RUN apk update && \
+    apk add python3 postgresql-libs && \
+    apk add --virtual .build-deps gcc python3-dev musl-dev postgresql-dev && \
+    python3 -m pip install -r requirements.txt --no-cache-dir && \
+    apk --purge del .build-deps
+
+RUN pip install gunicorn
+
+#ENTRYPOINT ["python", "manage.py"]
+#CMD ["runserver_plus", "--threaded", "0.0.0.0:8000"]
+
+RUN python manage.py collectstatic --no-input
+
+CMD ["gunicorn", "--access-logfile", "-", "--workers", "3", "ef.wsgi:application", "-b", "0.0.0.0:8000"]

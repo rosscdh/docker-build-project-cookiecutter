@@ -28,21 +28,20 @@ services:
       dockerfile: docker/DockerfileBackend
     #working_dir: /var/www/html
     environment:
-      - ENVIRONMENT=development
+      - DJANGO_ENV=development
       - DB_CONNECTION=postgres
       - DB_HOST=db
-      - DB_DATABASE={{cookiecutter.project_slug}}
-      - DB_USERNAME=root
-      - DB_PASSWORD=root_password
+      - DB_DATABASE='{{cookiecutter.project_slug}}'
+      - DB_USERNAME='{{cookiecutter.project_slug}}'
+      - DB_PASSWORD='{{cookiecutter.project_slug}}-password'
       - MAIL_PROTOCOL=smtp
       - MAIL_DRIVER=smtp
       - MAIL_HOST=mailcatcher
       - MAIL_PORT=1025
       - MAIL_FROM_ADDRESS={{cookiecutter.project_slug}}@example.com
       - MAIL_FROM_NAME={{cookiecutter.project_slug}}
-
     ports:
-      - "9000:9000"
+      - "8000:8000"
     volumes:
       - ./backend:/src
       - ./data/log:/var/log:rw
@@ -77,9 +76,9 @@ services:
     image: postgres:alpine
     restart: always
     environment:
-      POSTGRES_DB: {{cookiecutter.project_slug}}
-      POSTGRES_USER: {{cookiecutter.project_slug}}
-      POSTGRES_PASSWORD: {{cookiecutter.project_slug}}-password
+      POSTGRES_DB: '{{cookiecutter.project_slug}}'
+      POSTGRES_USER: '{{cookiecutter.project_slug}}'
+      POSTGRES_PASSWORD: '{{cookiecutter.project_slug}}-password'
     ports:
       - "3307:3306"
     volumes:

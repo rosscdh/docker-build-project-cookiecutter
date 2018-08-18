@@ -1,0 +1,22 @@
+django
+django-extensions
+django-rq
+django-cors-headers
+django-crispy-forms
+django-storages
+django-pipeline
+django-spurl
+django-health-check
+django-email-extras
+
+djangorestframework
+coreapi
+
+raven
+html2text
+
+Werkzeug
+
+# testing
+model_mommy
+httpretty

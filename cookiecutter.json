@@ -1,4 +1,5 @@
 {
   "project_name": "",
-  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-') }}"
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-') }}",
+  "docker_registry": "https://registry-1.docker.io"
 }
