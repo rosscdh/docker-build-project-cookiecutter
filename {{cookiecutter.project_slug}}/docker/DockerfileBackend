@@ -28,12 +28,13 @@ WORKDIR /src
 ADD ./backend /src
 
 RUN apk update && \
-    apk add python3 postgresql-libs && \
-    apk add --virtual .build-deps gcc python3-dev musl-dev postgresql-dev && \
+    apk add python3 postgresql-libs build-base libpq postgresql-dev && \
+    apk add --virtual .build-deps gcc python3-dev musl-dev && \
+    apk add gcc python3-dev musl-dev && \
     python3 -m pip install -r requirements.txt --no-cache-dir && \
     apk --purge del .build-deps
 
-RUN pip install gunicorn
+RUN pip install gunicorn psycopg2
 
 #ENTRYPOINT ["python", "manage.py"]
 #CMD ["runserver_plus", "--threaded", "0.0.0.0:8000"]

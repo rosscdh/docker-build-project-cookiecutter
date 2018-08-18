@@ -1,4 +1,4 @@
-FROM node:10-alpine as build
+FROM node:8-alpine as build
 
 #
 # Handle the env info
@@ -24,7 +24,7 @@ ARG BUILDENV
 
 EXPOSE 3000
 
-RUN  npm install -g json-server json-server-init
+RUN yarn global add json-server json-server-init
 
 WORKDIR /src
 
@@ -32,5 +32,5 @@ ADD ./mock-backend /src/
 
 RUN yarn install
 
-ENTRYPOINT ["npm"]
+ENTRYPOINT ["yarn"]
 CMD ["start"]

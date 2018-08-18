@@ -1,0 +1,32 @@
+{
+  "name": "mock-api-example",
+  "version": "1.0.0",
+  "description": "Example of Mock API created in \"Building a JavaScript Development Environment\" on Pluralsight",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "node buildScripts/generateMockData",
+    "start": "json-server --watch src/api/db.json --port $PORT"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coryhouse/mock-api-example.git"
+  },
+  "dependencies": {
+    "json-schema-faker": "0.3.6",
+    "json-server": "0.8.22"
+  },
+  "keywords": [
+    "javascript",
+    "mock",
+    "API",
+    "json",
+    "server",
+    "pluralsight"
+  ],
+  "author": "Cory House",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/coryhouse/mock-api-example/issues"
+  },
+  "homepage": "https://github.com/coryhouse/mock-api-example#readme"
+}

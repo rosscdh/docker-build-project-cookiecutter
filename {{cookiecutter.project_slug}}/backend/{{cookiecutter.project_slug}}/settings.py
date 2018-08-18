@@ -32,9 +32,7 @@ DJANGO_APPS = [
 ]
 
 APP_APPS = [
-    '{{ cookiecutter.project_slug }}.apps.public',
-    '{{ cookiecutter.project_slug }}.apps.video',
-    '{{ cookiecutter.project_slug }}.apps.categories',
+    '{{ cookiecutter.project_slug }}.apps.default',
 ]
 
 HELPER_APPS = [
@@ -227,26 +225,22 @@ CORS_ORIGIN_WHITELIST = (
 
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 
-RQ_QUEUES = {
-    'default': {
-        'HOST': os.getenv('REDIS_HOST', 'redis'),
-        'PORT': os.getenv('REDIS_PORT', '6379'),
-        'DB': os.getenv('REDIS_DB', '1'),
-        #'PASSWORD': 'some-password',
-        'DEFAULT_TIMEOUT': 360,
-    },
-    'high': {
-        'HOST': os.getenv('REDIS_HOST', 'redis'),
-        'PORT': os.getenv('REDIS_PORT', '6379'),
-        'DB': os.getenv('REDIS_DB', '1'),
-        #'PASSWORD': 'some-password',
-        'DEFAULT_TIMEOUT': 360,
-    }
-}
-
-ZIGGEO_TOKEN = os.getenv('ZIGGEO_TOKEN')
-ZIGGEO_PRIVATE_KEY = os.getenv('ZIGGEO_PRIVATE_KEY')
-ZIGGEO_ENCRYPTIONKEY = os.getenv('ZIGGEO_ENCRYPTIONKEY')
+# RQ_QUEUES = {
+#     'default': {
+#         'HOST': os.getenv('REDIS_HOST', 'redis'),
+#         'PORT': os.getenv('REDIS_PORT', '6379'),
+#         'DB': os.getenv('REDIS_DB', '1'),
+#         #'PASSWORD': 'some-password',
+#         'DEFAULT_TIMEOUT': 360,
+#     },
+#     'high': {
+#         'HOST': os.getenv('REDIS_HOST', 'redis'),
+#         'PORT': os.getenv('REDIS_PORT', '6379'),
+#         'DB': os.getenv('REDIS_DB', '1'),
+#         #'PASSWORD': 'some-password',
+#         'DEFAULT_TIMEOUT': 360,
+#     }
+# }
 
 PIPELINE = {
     'PIPELINE_ENABLED': True,
@@ -275,11 +269,12 @@ PIPELINE = {
 #
 # Cant use this due to model postsave dependency. Maybe switch to using the meta as the observed model?
 #
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
-RAVEN_CONFIG = {
-    'dsn': 'https://:@sentry.io/',
-    # If you are using git, you can also automatically configure the
-    # release based on the git info.
-    #'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
-}
+#HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+# RAVEN_CONFIG = {
+#     'dsn': 'https://:@sentry.io/',
+#     # If you are using git, you can also automatically configure the
+#     # release based on the git info.
+#     #'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
+# }
