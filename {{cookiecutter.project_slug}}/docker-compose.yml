@@ -10,6 +10,7 @@ services:
     tty: true
     environment:
       - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./frontend:/src
     ports:
@@ -30,7 +31,6 @@ services:
     build:
       context: .
       dockerfile: docker/DockerfileBackend
-    #working_dir: /var/www/html
     environment:
       - DJANGO_ENV=development
       - DEBUG=True

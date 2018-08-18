@@ -8,9 +8,11 @@ Do stuff with react frontend and a backend
 
 Docker compose is used and bundles all the toys
 
+**DO NOT** just docker-compose up.
+You must follow the steps below for maxiumum happiness.
+
 ```
 docker-compose up db                                       # let the db get created first (no dont use that docker-wait thing its crap)
-docker-compose up                                          # will install the apps as well as nginx, percona, but wont finish frontend because it needs the `node_modules` installed
 #
 # following are required because we mount the host filesystem SRC into the container, so you need to install node_modules on local fs.
 # and with django you gotta create the db
@@ -25,14 +27,30 @@ Development
 
 **start services in groups so you dont have to restart all of them**
 
-1. docker-compose up nginx postgres mailcatcher
-2. docker-compose up frontend
-3. docker-compose up backend
-4. docker-compose up mock-backend
+1. docker-compose up db
+2. docker-compose up nginx mailcatcher
+3. docker-compose up frontend
+4. docker-compose exec frontend npm test
+5. docker-compose up backend
+6. docker-compose up mock-backend
 
 Compose mounts your local source in the running container so you can just edit it with your IDE as you would normally
 
 Each time you add a new requirement to requirements.txt you will need to docker-compose up --build backend (so it installs to the container)
+
+Via Nginx
+---------
+
+http://localhost/
+http://localhost/mock-api/products
+http://localhost/api/products
+
+Direct
+------
+
+http://localhost:3000
+http://localhost:8001/products
+http://localhost:8000/products
 
 
 DB migrations
