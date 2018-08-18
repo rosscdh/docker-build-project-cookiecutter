@@ -1,8 +1,7 @@
 FROM node:10-alpine as build
 
-#
-# Handle the env info
-#
+RUN yarn global add create-react-app
+
 #
 # Handle the env info
 #
@@ -26,10 +25,8 @@ EXPOSE 3000
 
 WORKDIR /src
 
-RUN npm install -g create-react-app
-
 ADD ./frontend /src/
 
 RUN yarn install
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]

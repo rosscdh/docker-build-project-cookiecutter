@@ -4,6 +4,8 @@ MAINTAINER "sendrossemail@gmail.com"
 
 EXPOSE 8000
 
+RUN pip install --upgrade pip
+
 #
 # Handle the env info
 #
@@ -23,7 +25,7 @@ ENV BUILDENV=$BUILDENV
 
 WORKDIR /src
 
-ADD . /src
+ADD ./backend /src
 
 RUN apk update && \
     apk add python3 postgresql-libs && \
@@ -38,4 +40,4 @@ RUN pip install gunicorn
 
 RUN python manage.py collectstatic --no-input
 
-CMD ["gunicorn", "--access-logfile", "-", "--workers", "3", "ef.wsgi:application", "-b", "0.0.0.0:8000"]
+CMD ["gunicorn", "--access-logfile", "-", "--max-requests=100", "--max-requests-jitter=10", "--workers", "3", "{{ cookiecutter.project_slug }}.wsgi:application", "-b", "0.0.0.0:8000"]

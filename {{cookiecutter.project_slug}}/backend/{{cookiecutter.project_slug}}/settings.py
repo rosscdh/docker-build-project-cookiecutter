@@ -32,9 +32,9 @@ DJANGO_APPS = [
 ]
 
 APP_APPS = [
-    'ef.apps.public',
-    'ef.apps.video',
-    'ef.apps.categories',
+    '{{ cookiecutter.project_slug }}.apps.public',
+    '{{ cookiecutter.project_slug }}.apps.video',
+    '{{ cookiecutter.project_slug }}.apps.categories',
 ]
 
 HELPER_APPS = [
@@ -114,13 +114,13 @@ else:
     ]
 
 
-ROOT_URLCONF = 'ef.urls'
+ROOT_URLCONF = '{{ cookiecutter.project_slug }}.urls'
 
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'ef', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, '{{ cookiecutter.project_slug }}', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,7 +128,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'ef.apps.public.context_processors.ziggeo',
             ],
         },
     },
@@ -147,7 +146,7 @@ if DEBUG is False:
     ]
 
 
-WSGI_APPLICATION = 'ef.wsgi.application'
+WSGI_APPLICATION = '{{ cookiecutter.project_slug }}.wsgi.application'
 
 # CACHES = {
 #     "default": {

@@ -14,8 +14,6 @@ services:
       - ./frontend:/src
     ports:
       - "3000:3000"
-    links:
-      - backend
 
   mock-backend:
     build:
