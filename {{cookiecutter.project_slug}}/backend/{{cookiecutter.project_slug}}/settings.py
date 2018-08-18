@@ -67,7 +67,6 @@ if DEBUG is True:
     # Development
     #
     INSTALLED_APPS += [
-        'django_seed',
     ]
 
     MIDDLEWARE = [

@@ -35,5 +35,4 @@ ADD ./mock-backend /src/
 
 RUN yarn install
 
-ENTRYPOINT ["yarn"]
-CMD ["start"]
+CMD ["yarn", "start"]

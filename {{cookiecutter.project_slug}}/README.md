@@ -9,10 +9,15 @@ Do stuff with react frontend and a backend
 Docker compose is used and bundles all the toys
 
 ```
-docker-compose up db                                       # let the db get created
+docker-compose up db                                       # let the db get created first (no dont use that docker-wait thing its crap)
 docker-compose up                                          # will install the apps as well as nginx, percona, but wont finish frontend because it needs the `node_modules` installed
-docker-compose run --rm frontend yarn install              # install/update the npm libs but use yarn because yarn is "better" also this is necessary to ensure you get the modules on your local filesystem
-docker-compose run --rm mock-backend yarn install
+#
+# following are required because we mount the host filesystem SRC into the container, so you need to install node_modules on local fs.
+# and with django you gotta create the db
+#
+docker-compose run --rm frontend yarn install              # install modules to host fs 
+docker-compose run --rm backend python manage.py migrate   # create db
+docker-compose run --rm mock-backend yarn install          # install modules to host fs 
 ```
 
 Development
