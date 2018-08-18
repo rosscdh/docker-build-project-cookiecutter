@@ -152,6 +152,8 @@ read:
 
 handled in docker files
 
+https://github.com/marak/Faker.js/
+
 ```
 npm install -g create-react-app
 npm install -g json-server-init

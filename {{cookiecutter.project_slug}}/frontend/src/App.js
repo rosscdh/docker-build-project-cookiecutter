@@ -7,6 +7,9 @@ import './App.css';
 const API = 'http://localhost:8001';
 const DEFAULT_QUERY = '/products';
 
+// const API = '/mock-api';
+// const DEFAULT_QUERY = '/products';
+
 class App extends Component {
   constructor(props) {
     super(props);
