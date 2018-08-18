@@ -1,0 +1,92 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/DockerfileFrontend
+    command: npm start
+    stdin_open: true
+    tty: true
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./frontend:/src
+    ports:
+      - "3000:3000"
+    links:
+      - backend
+
+  mock-backend:
+    build:
+      context: .
+      dockerfile: docker/DockerfileMockBackend
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/DockerfileBackend
+    #working_dir: /var/www/html
+    environment:
+      - ENVIRONMENT=development
+      - DB_CONNECTION=postgres
+      - DB_HOST=db
+      - DB_DATABASE={{cookiecutter.project_slug}}
+      - DB_USERNAME=root
+      - DB_PASSWORD=root_password
+      - MAIL_PROTOCOL=smtp
+      - MAIL_DRIVER=smtp
+      - MAIL_HOST=mailcatcher
+      - MAIL_PORT=1025
+      - MAIL_FROM_ADDRESS={{cookiecutter.project_slug}}@example.com
+      - MAIL_FROM_NAME={{cookiecutter.project_slug}}
+
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./backend:/src
+      - ./data/log:/var/log:rw
+      - ./config/php-fpm-pool.conf:/etc/php5/fpm/pool.d/php-fpm-pool.conf:rw
+    links:
+      - db
+      - mailcatcher
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:1.12.2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - FRONTEND_PORT=3000  # development
+    volumes:
+      - ./config/nginx/backend.conf:/etc/nginx/conf.d/backend.conf
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./config/nginx/.htpasswd:/etc/nginx/.htpasswd
+      - ./config/nginx/ssl:/etc/ssl
+      - ./data/log:/var/log/nginx/:rw
+    links:
+      - frontend
+      - backend
+    depends_on:
+      - frontend
+      - backend
+
+  db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_DB: {{cookiecutter.project_slug}}
+      POSTGRES_USER: {{cookiecutter.project_slug}}
+      POSTGRES_PASSWORD: {{cookiecutter.project_slug}}-password
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  mailcatcher:
+    image: palo/mailcatcher
+    ports:
+      - "1025:1025"
+      - "1080:1080"

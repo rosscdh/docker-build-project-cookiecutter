@@ -1,0 +1,15 @@
+data/mysql/*
+!data/mysql/.gitkeep*
+
+data/log/*
+!data/log/.gitkeep*
+
+
+frontend/node_modules
+frontend/*.log
+frontend/yarn.lock
+
+backend/vendor
+
+semantic/node_modules
+semantic/semantic/dist

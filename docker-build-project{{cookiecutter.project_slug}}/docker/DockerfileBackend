@@ -1,0 +1,57 @@
+FROM php:7-fpm-alpine as base
+
+#
+# Handle the env info
+#
+ARG BUILD_COMMIT_SHA1
+ARG BUILD_COMMIT_DATE
+ARG BUILD_BRANCH
+ARG BUILD_DATE
+ARG BUILD_REPO_ORIGIN
+ARG BUILDENV
+
+ENV BUILD_COMMIT_SHA1=$BUILD_COMMIT_SHA1
+ENV BUILD_COMMIT_DATE=$BUILD_COMMIT_DATE
+ENV BUILD_BRANCH=$BUILD_BRANCH
+ENV BUILD_DATE=$BUILD_DATE
+ENV BUILD_REPO_ORIGIN=$BUILD_REPO_ORIGIN
+ENV BUILDENV=$BUILDENV
+
+EXPOSE 9000
+
+RUN apk add --update-cache build-base zlib zlib-dev curl jpeg jpeg-dev libpng libpng-dev libzip-dev
+
+RUN ln -s /lib/libz.so /usr/lib/
+
+RUN docker-php-ext-install mysqli pdo pdo_mysql zip
+
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php -r "if (hash_file('SHA384', 'composer-setup.php') === '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+RUN php composer-setup.php
+RUN php -r "unlink('composer-setup.php');"
+RUN mv composer.phar /usr/local/bin/composer
+
+ADD ./backend /src/
+RUN chown -R www-data:www-data /src
+RUN chmod -R 755 /src
+
+
+ADD ./config/php-fpm-pool.conf /etc/php5/fpm/pool.d/
+
+
+USER www-data
+WORKDIR /src
+
+#
+# install your framework here
+#
+RUN composer global require "laravel/lumen-installer"
+RUN composer global require "laravel/installer"
+RUN composer install
+
+USER root
+
+WORKDIR /src/public
+
+CMD ["php-fpm"]
+
