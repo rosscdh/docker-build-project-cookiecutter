@@ -4,17 +4,22 @@ import ProductList from './components/ProductList';
 import logo from './logo.svg';
 import './App.css';
 
+const API = 'http://localhost:8001';
+const DEFAULT_QUERY = '/products';
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedProducts: [],
-      products: [
-        {id: 1, name: 'AirMax 90', brand: 'Nike'},
-        {id: 2, name: 'Yeezy', brand: 'Adidas'},
-        {id: 3, name: 'Classic', brand: 'Reebok'},
-      ]
+      products: []
     }
+  }
+
+  componentWillMount() {
+    fetch(API + DEFAULT_QUERY)
+      .then(response => response.json())
+      .then(data => this.setState({ products: data }));
   }
 
   handleProductSelect (product) {

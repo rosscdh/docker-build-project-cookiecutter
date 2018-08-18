@@ -52,9 +52,14 @@ var api = {
           "color": {
             "type": "string",
             "faker": "commerce.color"
+          },
+          "brand": {
+            "type": "string",
+            "faker": "company.companyName"
           }
+          
         },
-        "required": ["id", "name", "price", "color"]
+        "required": ["id", "name", "brand", "price", "color"]
       }
     }
   },
