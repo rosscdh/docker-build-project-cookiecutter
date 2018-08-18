@@ -19,6 +19,10 @@ services:
     build:
       context: .
       dockerfile: docker/DockerfileMockBackend
+    environment:
+      - PORT=8001
+    ports:
+      - "8001:8001"
 
   backend:
     build:
