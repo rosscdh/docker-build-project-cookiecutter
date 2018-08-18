@@ -12,6 +12,7 @@ Docker compose is used and bundles all the toys
 docker-compose up db                                       # let the db get created
 docker-compose up                                          # will install the apps as well as nginx, percona, but wont finish frontend because it needs the `node_modules` installed
 docker-compose run --rm frontend yarn install              # install/update the npm libs but use yarn because yarn is "better" also this is necessary to ensure you get the modules on your local filesystem
+docker-compose run --rm mock-backend yarn install
 ```
 
 Development
