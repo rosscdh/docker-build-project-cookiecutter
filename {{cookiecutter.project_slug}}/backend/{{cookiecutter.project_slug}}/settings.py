@@ -33,6 +33,7 @@ DJANGO_APPS = [
 
 APP_APPS = [
     '{{ cookiecutter.project_slug }}.apps.default',
+    '{{ cookiecutter.project_slug }}.apps.api',
 ]
 
 HELPER_APPS = [

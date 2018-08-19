@@ -17,9 +17,11 @@ docker-compose up db                                       # let the db get crea
 # following are required because we mount the host filesystem SRC into the container, so you need to install node_modules on local fs.
 # and with django you gotta create the db
 #
-docker-compose run --rm frontend yarn install              # install modules to host fs 
+docker-compose run --rm frontend yarn install              # install modules to host fs
+docker-compose run --rm mock-backend yarn install          # install modules to host fs
 docker-compose run --rm backend python manage.py migrate   # create db
-docker-compose run --rm mock-backend yarn install          # install modules to host fs 
+docker-compose run --rm backend python manage.py collectstatic --no-input
+docker-compose run --rm backend python manage.py createsuperuser
 ```
 
 Development
@@ -33,6 +35,7 @@ Development
 4. docker-compose exec frontend npm test
 5. docker-compose up backend
 6. docker-compose up mock-backend
+7. docker-compose run --rm backend python manage.py startapp new_app_name
 
 Compose mounts your local source in the running container so you can just edit it with your IDE as you would normally
 

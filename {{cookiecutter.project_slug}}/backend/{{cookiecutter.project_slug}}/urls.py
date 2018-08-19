@@ -9,6 +9,7 @@ admin.site.site_header = '{{ cookiecutter.project_name }} - Administration'
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^health/', include('health_check.urls')),
+    url(r'^api/v1/', include(('tester.apps.api.urls', 'api_v1'), namespace='api_v1')),
     url(r'^', include(('{{ cookiecutter.project_slug }}.apps.default.urls', 'default'), namespace='default')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  \
   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
