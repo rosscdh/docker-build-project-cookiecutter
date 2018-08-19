@@ -7,8 +7,9 @@ for a `frontend` and a `django backend` as well as `mock-backend` object wtih po
 
 ### Installation
 
-1. sudo easy_install pip
-2. sudo pip install cookiecutter
+```
+pip install cookiecutter
+```
 
 ### Usage
 
