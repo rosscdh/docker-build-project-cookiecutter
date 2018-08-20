@@ -1,4 +1,4 @@
-.PHONY: all build-frontend build-mockbackend build-backend push-frontend push-backend push-mockbackend
+.PHONY: all build-frontend build-mockbackend build-backend push-frontend push-backend push-mockbackend build-e2e e2e
 
 NAME     = {{cookiecutter.project_slug}}
 REGISTRY = {{cookiecutter.docker_registry}}
@@ -54,3 +54,9 @@ push-backend:
 push-mockbackend:
 	docker push ${REGISTRY}/{{cookiecutter.project_slug}}-mockbackend:latest
 	docker push ${REGISTRY}/{{cookiecutter.project_slug}}-mockbackend:${TAG}
+
+build-e2e:
+	docker build -t cypress-e2e:latest -f cypress-e2e/Dockerfile .
+
+e2e: build-e2e
+	docker run --rm -it -v ${PWD}/frontend:/app --link frontend:frontend  cypress-e2e:latest
