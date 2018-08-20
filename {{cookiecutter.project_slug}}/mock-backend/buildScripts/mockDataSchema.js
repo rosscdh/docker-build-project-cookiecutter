@@ -31,8 +31,8 @@ var api = {
     },
     "products": {
       "type": "array",
-      "minItems": 10,
-      "maxItems": 15,
+      "minItems": 12,
+      "maxItems": 12,
       "items": {
         "type": "object",
         "properties": {

@@ -55,8 +55,16 @@ push-mockbackend:
 	docker push ${REGISTRY}/{{cookiecutter.project_slug}}-mockbackend:latest
 	docker push ${REGISTRY}/{{cookiecutter.project_slug}}-mockbackend:${TAG}
 
-build-e2e:
-	docker build -t cypress-e2e:latest -f cypress-e2e/Dockerfile .
+start-mock-backend:
+	docker stop mock-backend | true
+	docker run -d --rm --name mock-backend -v ${PWD}/mock-backend:/src -p 8001:8001 tester_mock-backend:latest
 
-e2e: build-e2e
-	docker run --rm -it -v ${PWD}/frontend:/app --link frontend:frontend  cypress-e2e:latest
+start-frontend:
+	docker stop frontend | true
+	docker run -d --rm --name frontend -v ${PWD}/frontend:/src -p 3000:3000 --link mock-backend tester_frontend:latest
+
+e2e: start-mock-backend start-frontend
+	sleep 5
+	docker run --rm -it -v ${PWD}/frontend:/app --link frontend:frontend cypress-e2e:latest
+	docker stop frontend | true
+	docker stop mock-backend | true
