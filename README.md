@@ -13,7 +13,7 @@ pip install cookiecutter
 
 ### Usage
 
-1. cd into the project you want to create an RPM for
+1. cd into the dir you want to create the project in
 2. cookiecutter https://github.com/rosscdh/docker-build-project-cookiecutter
 3. follow the prompts
 4. this will output the project into the CWD
