@@ -1,0 +1,19 @@
+{
+  "projectId": "app",
+  "baseUrl": "https://example.com",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36 OPR/55.0.2994.44",
+  "login_page": "/login/",
+  "users": {
+    "default": {
+      "email": "testemail@example.com",
+      "password": "user123!password"
+    }
+  },
+  "watchForFileChanges": false,
+  "waitForAnimations": false,
+  "reporter": "junit",
+  "reporterOptions": {
+    "mochaFile": "results/reporter.xml",
+    "toConsole": false
+  }
+}

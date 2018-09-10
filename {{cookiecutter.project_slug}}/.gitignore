@@ -11,5 +11,7 @@ frontend/yarn.lock
 
 backend/vendor
 
+.Trash-0
+
 semantic/node_modules
 semantic/semantic/dist

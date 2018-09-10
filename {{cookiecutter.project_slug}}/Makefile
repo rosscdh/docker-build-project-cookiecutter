@@ -43,6 +43,12 @@ build-backend:
 	--build-arg BUILD_REPO_ORIGIN=${BUILD_REPO_ORIGIN} \
 	 -f docker/DockerfileBackend .
 
+build-cypress:
+	docker build -t cypress-e2e:latest -f cypress-e2e/Dockerfile .
+
+run-cypress:
+	docker run --rm -it -v ${PWD}/cypress-e2e:/app cypress-e2e:latest bash
+
 push-frontend:
 	docker push ${REGISTRY}/${LATEST}
 	docker push ${REGISTRY}/${VERSION}
