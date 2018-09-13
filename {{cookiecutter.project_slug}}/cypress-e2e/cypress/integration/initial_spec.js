@@ -7,15 +7,16 @@ describe('Test Login', function(){
     cy.visit('/backend/projekte/')
   
     cy.get('#datatable-filter-form').as('form')
+
+    cy.get('@form').contains('#id_projekt_produkttypen', 'EnergieAudit')
+
+    cy.get('#id_projekt_produkttypen').as('ProductTypeInput')//.select('EnergieAudit')
+    cy.get('@ProductTypeInput')
+      .select(['Startprodukte', 'EnergieAudit']).invoke('val')
+      .should('deep.equal', ['10', '5'])
+
     cy.screenshot()
 
   })
 
 })
-
-
-// describe('My First Test', function() {
-//   it('Visits the Kitchen Sink', function() {
-//     cy.visit('https://example.cypress.io')
-//   })
-// })
